@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
+
+        <Button
+            android:id="@+id/feedback_off"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16sp"
+            android:layout_marginRight="16dp"
+            android:background="#D53D39"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="Haptic feedback OFF" />
+
+        <Button
+            android:id="@+id/feedback_ON"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16sp"
+            android:layout_marginRight="16dp"
+            android:background="#22A828"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="Haptic feedback ON"
+            android:visibility="gone" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16sp"
+            android:text="Default Vibration and Sound"
+            android:textColor="#000"
+            android:textSize="16sp" />
+
+
+        <Button
+            android:id="@+id/btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="#7CB342"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="default Vibration" />
+
+        <Button
+            android:id="@+id/d_long_press"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="#DFB80A"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="default Vibration Long Press" />
+
+        <Button
+
+            android:id="@+id/btn1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="#3949AB"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="default Vibration + sound" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16sp"
+            android:text="Custom Vibration"
+            android:textColor="#000"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/success"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="#22A828"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:soundEffectsEnabled="false"
+            android:text="success" />
+
+        <Button
+            android:id="@+id/warning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="#ECC107"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:soundEffectsEnabled="false"
+            android:text="warning" />
+
+        <Button
+            android:id="@+id/error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="#E53935"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:soundEffectsEnabled="false"
+            android:text="error" />
+
+        <Button
+            android:id="@+id/light"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16sp"
+            android:layout_marginRight="16dp"
+            android:background="#509BDD"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:soundEffectsEnabled="false"
+            android:text="light" />
+
+        <Button
+            android:id="@+id/medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="#2D7CC1"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:soundEffectsEnabled="false"
+            android:text="medium" />
+
+        <Button
+            android:id="@+id/heavy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="#0481EF"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:soundEffectsEnabled="false"
+            android:text="heavy" />
+
+        <Button
+            android:id="@+id/selection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="#7CB342"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:soundEffectsEnabled="false"
+            android:text="selection" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16sp"
+            android:text="Custom Vibration Pattern"
+            android:textColor="#000"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/pattern1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="#FB8C00"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:soundEffectsEnabled="false"
+            android:text=" Vibration pattern 1" />
+
+        <Button
+            android:id="@+id/pattern2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="#22A828"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:soundEffectsEnabled="false"
+            android:text=" Vibration Effect " />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16sp"
+            android:text="Custom Vibration + sound"
+            android:textColor="#000"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/vibrate_sound"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16sp"
+            android:background="#DD9D07"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:soundEffectsEnabled="false"
+            android:text=" Custom Vibration + sound" />
+    </LinearLayout>
+</ScrollView>
