@@ -18,6 +18,7 @@ import android.view.MotionEvent;
 import android.view.SoundEffectConstants;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     int Action_code = 1;
     boolean isisHapticFeedbackEnabled = false;
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,23 +62,48 @@ public class MainActivity extends AppCompatActivity {
         player = MediaPlayer.create(MainActivity.this, R.raw.mouseclickcom);
 
         Log.i(TAG, "onCreate: isVibration  " + myVib.hasVibrator());
+        boolean isVibrateOnTouchEnabled = Settings.System.getInt(getContentResolver(),
+                Settings.System.HAPTIC_FEEDBACK_ENABLED, 1) != 0;
+
+        boolean isTouchSoundsEnabled = Settings.System.getInt(getContentResolver(),
+                Settings.System.SOUND_EFFECTS_ENABLED, 1) != 0;
+
+        Log.i(TAG, "onTouch: isVibrateOnTouchEnabled " + isVibrateOnTouchEnabled);
+        if (isVibrateOnTouchEnabled && isTouchSoundsEnabled) {
+            default_sound_vibration.setText("Default sound + vibration OFF");
+            default_sound_vibration.setBackgroundColor(Color.RED);
+        }
 
         default_sound_vibration.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
-                if (default_sound_vibration.getText().toString().equals("Default sound + vibration ON")) {
-                    default_sound_vibration.setText("Default sound + vibration OFF");
-                    default_sound_vibration.setBackgroundColor(Color.RED);
-                    Settings.System.putInt(getContentResolver(), Settings.System.SOUND_EFFECTS_ENABLED, 1);
-                    Settings.System.putInt(getContentResolver(), Settings.System.HAPTIC_FEEDBACK_ENABLED, 1);
-                } else { /*(default_sound_vibration.getText().toString().equals("Default sound + vibration OFF")){*/
-                    default_sound_vibration.setText("Default sound + vibration ON");
-                    default_sound_vibration.setBackgroundColor(Color.GREEN);
-                    Settings.System.putInt(getContentResolver(), Settings.System.SOUND_EFFECTS_ENABLED, 0);
-                    Settings.System.putInt(getContentResolver(), Settings.System.HAPTIC_FEEDBACK_ENABLED, 0);
-                }
 
+              /*  boolean isVibrateOnTouchEnabled = Settings.System.getInt(getContentResolver(),
+                        Settings.System.HAPTIC_FEEDBACK_ENABLED, 1) != 0;
+
+                Log.i(TAG, "onTouch: isVibrateOnTouchEnabled " + isVibrateOnTouchEnabled);
+                if (!isVibrateOnTouchEnabled) {
+                    isHapticFeedbackEnabled(MainActivity.this, v);
+
+                } */
+
+
+                if (checkSystemWritePermission()) {
+                    if (default_sound_vibration.getText().toString().equals("Default sound + vibration ON")) {
+                        default_sound_vibration.setText("Default sound + vibration OFF");
+                        default_sound_vibration.setBackgroundColor(Color.RED);
+                        Settings.System.putInt(getContentResolver(), Settings.System.SOUND_EFFECTS_ENABLED, 1);
+                        Settings.System.putInt(getContentResolver(), Settings.System.HAPTIC_FEEDBACK_ENABLED, 1);
+                        v.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+                        v.playSoundEffect(SoundEffectConstants.CLICK);
+                    } else { /*(default_sound_vibration.getText().toString().equals("Default sound + vibration OFF")){*/
+                        default_sound_vibration.setText("Default sound + vibration ON");
+                        default_sound_vibration.setBackgroundColor(Color.GREEN);
+                        Settings.System.putInt(getContentResolver(), Settings.System.SOUND_EFFECTS_ENABLED, 0);
+                        Settings.System.putInt(getContentResolver(), Settings.System.HAPTIC_FEEDBACK_ENABLED, 0);
+                    }
+                } else settingPermission();
             }
         });
 
@@ -93,7 +119,8 @@ public class MainActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_DOWN:
 
                         if (!isVibrateOnTouchEnabled) {
-                            isHapticFeedbackEnabled(MainActivity.this, v);
+//                            isHapticFeedbackEnabled(MainActivity.this, v);
+                            Toast.makeText(MainActivity.this, "Please Turn on Default Sound and Vibration", Toast.LENGTH_SHORT).show();
                         }
                         // For default Vibration
                         else
@@ -119,7 +146,8 @@ public class MainActivity extends AppCompatActivity {
                 Log.i(TAG, "onTouch: isVibrateOnTouchEnabled " + isVibrateOnTouchEnabled);
 
                 if (!isVibrateOnTouchEnabled) {
-                    isHapticFeedbackEnabled(MainActivity.this, v);
+//                    isHapticFeedbackEnabled(MainActivity.this, v);
+                    Toast.makeText(MainActivity.this, "Please Turn on Default Sound and Vibration", Toast.LENGTH_SHORT).show();
                 } else
                     v.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
                 return false;
@@ -141,12 +169,9 @@ public class MainActivity extends AppCompatActivity {
                                 Settings.System.SOUND_EFFECTS_ENABLED, 1) != 0;
 
                         Log.i(TAG, "onTouch: isVibrateOnTouchEnabled " + isVibrateOnTouchEnabled);
-                        settingPermission();
-                        if (!isVibrateOnTouchEnabled) {
-                            isHapticFeedbackEnabled(MainActivity.this, view);
-
-                        } else if (!isTouchSoundsEnabled) {
-                            isSoundEffectConstants(MainActivity.this, view);
+                        if (!isVibrateOnTouchEnabled && !isTouchSoundsEnabled) {
+//                            isHapticFeedbackEnabled(MainActivity.this, view);
+                            Toast.makeText(MainActivity.this, "Please Turn on Default Sound and Vibration", Toast.LENGTH_SHORT).show();
 
                         } else {
                             // For default Vibration
@@ -163,6 +188,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+  /* --------------------------------------------------------  Custom Vibration ----------------------------------------------------*/
         feedback_off.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -320,11 +347,14 @@ public class MainActivity extends AppCompatActivity {
 
             dialogBuilder.setMessage("Do you want to turn on Touch on Sound ?");
             dialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @SuppressLint("SetTextI18n")
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     Settings.System.putInt(getContentResolver(), Settings.System.SOUND_EFFECTS_ENABLED, 1);
                     v.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
                     v.playSoundEffect(SoundEffectConstants.CLICK);
+                    default_sound_vibration.setText("Default sound + vibration OFF");
+                    default_sound_vibration.setBackgroundColor(Color.RED);
                 }
             });
             dialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -346,11 +376,14 @@ public class MainActivity extends AppCompatActivity {
 
             dialogBuilder.setMessage("Do you want to turn on Touch on Vibrate ?");
             dialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @SuppressLint("SetTextI18n")
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     Settings.System.putInt(getContentResolver(), Settings.System.HAPTIC_FEEDBACK_ENABLED, 1);
                     v.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
                     isisHapticFeedbackEnabled = true;
+                    default_sound_vibration.setText("Default sound + vibration OFF");
+                    default_sound_vibration.setBackgroundColor(Color.RED);
                 }
             });
             dialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
