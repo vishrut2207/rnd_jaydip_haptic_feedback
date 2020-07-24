@@ -26,6 +26,8 @@
             android:foreground="?android:attr/selectableItemBackground"
             android:text="Haptic feedback OFF" />
 
+
+
         <Button
             android:id="@+id/feedback_ON"
             android:layout_width="match_parent"
@@ -38,6 +40,18 @@
             android:foreground="?android:attr/selectableItemBackground"
             android:text="Haptic feedback ON"
             android:visibility="gone" />
+
+        <Button
+            android:id="@+id/default_sound_vibration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16sp"
+            android:layout_marginRight="16dp"
+            android:background="#D53D39"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="Default sound + vibration OFF" />
 
         <TextView
             android:layout_width="wrap_content"
